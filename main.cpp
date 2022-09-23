@@ -31,8 +31,10 @@ int main(int argc, char *argv[]) {
 
 
 
-    if(ex_string=="MoireBands"){
-        string model_inputfile = argv[1];
+//    if(ex_string=="MoireBands"){
+  
+	if(true){
+      string model_inputfile = argv[1];
 
         if (argc<2) { throw std::invalid_argument("USE:: executable inputfile"); }
 
@@ -106,6 +108,7 @@ int main(int argc, char *argv[]) {
         char Dflag='V';
         Hamiltonian_.Diagonalize(Dflag);
 	E_gamma_max = Hamiltonian_.eigs_[Hamiltonian_.Ham_.n_col()-1]; 
+	cout<<"E_gamma_max = "<<E_gamma_max<<endl;
 	//-----------------------------
 
         for(int index=0;index<k_path.size();index++){
