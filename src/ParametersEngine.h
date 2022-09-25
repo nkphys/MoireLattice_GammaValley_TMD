@@ -11,6 +11,14 @@ public:
     int Grid_L1, Grid_L2, ns;
     int BZ_L1, BZ_L2;
     double Vz_;
+    int q_slices, theta_slices, r_slices;
+
+
+//	q_slices=200
+//theta_slices=200
+//r_sclices=181
+
+
 
     void Initialize(string inputfile_);
     double matchstring(string file,string match);
@@ -35,6 +43,12 @@ void Parameters::Initialize(string inputfile_){
     Grid_L2 = int(matchstring(inputfile_,"Grid_ReciprocalLattice_L2"));
     BZ_L1 = int(matchstring(inputfile_,"BZ_L1"));
     BZ_L2 = int(matchstring(inputfile_,"BZ_L2"));
+
+    q_slices=int(matchstring(inputfile_,"q_slices"));
+    theta_slices=int(matchstring(inputfile_,"theta_slices"));
+    r_slices=int(matchstring(inputfile_,"r_slices"));
+
+
     a_monolayer = matchstring(inputfile_,"a_monolayer_in_angstorm");
     TwistTheta = matchstring(inputfile_,"Twist_Theta_in_radians");
     a_moire = a_monolayer/abs(TwistTheta);

@@ -12,3 +12,11 @@ Layer_Potential_Diff_Vz_in_meV=0
 BZ_L1=9
 BZ_L2=9
 eps_DE=1
+
+q_slices=200
+theta_slices=200
+
+#18N+1
+r_slices=181
+
+

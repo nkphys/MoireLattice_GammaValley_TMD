@@ -756,7 +756,7 @@ double d_rx, d_ry, rx_min, ry_min;
     r1_max=3.0*Parameters_.a_moire + Wnr_center_1[0];
     r2_max=3.0*Parameters_.a_moire + Wnr_center_2[0];
     int r_ind;
-    int space_slices=271;//N=18n+1
+    int space_slices=Parameters_.r_slices;//N=18n+1
     d_r1=(r1_max-r1_min)/(space_slices-1);
     d_r2=(r2_max-r2_min)/(space_slices-1);
 
@@ -769,7 +769,8 @@ double d_rx, d_ry, rx_min, ry_min;
     qy_min=-4.0*PI;//Parameters_.a_moire;
     qx_max=4.0*PI;//Parameters_.a_moire;
     qy_max=4.0*PI;//Parameters_.a_moire;
-    int q_slices=100;
+    
+    int q_slices=Parameters_.q_slices;
     d_qx=(qx_max-qx_min)/(q_slices);
     d_qy=(qy_max-qy_min)/(q_slices);
     double eta_q=0.001;
@@ -780,7 +781,7 @@ double d_rx, d_ry, rx_min, ry_min;
     double q_max, d_q,  d_theta;
     q_max=0.4*PI;
     d_q=(q_max)/(q_slices);
-    int theta_slices=100;
+    int theta_slices=Parameters_.theta_slices;
     d_theta = (2.0*PI)/(theta_slices);
 
 
