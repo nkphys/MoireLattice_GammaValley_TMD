@@ -539,7 +539,7 @@ for(int r1_ind=0;r1_ind<space_slices;r1_ind++){
                 rx_ = ((r1_min + r1_ind*d_r1)*(sqrt(3.0)/2.0)) + ((r2_min + r2_ind*d_r2)*(sqrt(3.0)/2.0));
                  ry_ = ((r1_min + r1_ind*d_r1)*((-1.0)/2.0)) + ((r2_min + r2_ind*d_r2)*((1.0)/2.0));
 
-        Bloch_overlaps[m][n] += d_r1*d_r2*conj(Psi_state_[m][r_ind])*Psi_state_[n][r_ind];
+        Bloch_overlaps[m][n] += (sqrt(3.0)/2.0)*d_r1*d_r2*conj(Psi_state_[m][r_ind])*Psi_state_[n][r_ind];
 }
 }
 }
@@ -561,7 +561,7 @@ for(int r1_ind=0;r1_ind<space_slices;r1_ind++){
                 std_dev = 0.01*Parameters_.a_moire;
         //Overlaps_[m][n] += d_rx*d_ry*conj(Psi_state_[m][r_ind])*Gaussian(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], std_dev);
 
-	Overlaps_[m][n] += d_r1*d_r2*conj(Psi_state_[m][r_ind])*P_orbital_WF(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], alpha, n);
+	Overlaps_[m][n] += (sqrt(3.0)/2.0)*d_r1*d_r2*conj(Psi_state_[m][r_ind])*P_orbital_WF(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], alpha, n);
 
 //cout<<r1_ind<<"  "<<r2_ind<<"  "<<d_r1*d_r2*P_orbital_WF(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], alpha, n)<<endl;
 	//Overlaps_[m][n] += d_r1*d_r2*conj(Psi_state_[m][r_ind]);
@@ -613,7 +613,7 @@ S_mat(n,m)=0.0;
 for(int r1_ind=0;r1_ind<space_slices;r1_ind++){
                 for(int r2_ind=0;r2_ind<space_slices;r2_ind++){
         r_ind=r1_ind + (space_slices)*r2_ind;
-	S_mat(n,m) += d_r1*d_r2*conj(Phi_state_[n][r_ind])*Phi_state_[m][r_ind];//*0.0001;
+	S_mat(n,m) += (sqrt(3.0)/2.0)*d_r1*d_r2*conj(Phi_state_[n][r_ind])*Phi_state_[m][r_ind];//*0.0001;
 }}
 }}
 
@@ -945,7 +945,7 @@ for(int band2=0;band2<4;band2++){
                             for(int r2_ind=0;r2_ind<space_slices;r2_ind++){
                                 r_ind=r1_ind + (space_slices)*r2_ind;
                                 
-                                checknorm += d_r1*d_r2*Psi_state_[band_i][r_ind]*conj(Psi_state_[band_i][r_ind]);
+                                checknorm += (sqrt(3.0)/2.0)*d_r1*d_r2*Psi_state_[band_i][r_ind]*conj(Psi_state_[band_i][r_ind]);
                             }
                         }
 		for(int r1_ind=0;r1_ind<space_slices;r1_ind++){
@@ -1015,7 +1015,7 @@ for(int band2=0;band2<4;band2++){
     for(int r1_ind=0;r1_ind<space_slices;r1_ind++){
         for(int r2_ind=0;r2_ind<space_slices;r2_ind++){
             r_ind=r1_ind + (space_slices)*r2_ind;
-            checknorm += d_r1*d_r2*Wnr_state_[band_i][r_ind]*conj(Wnr_state_[band_i][r_ind]);
+            checknorm += (sqrt(3.0)/2.0)*d_r1*d_r2*Wnr_state_[band_i][r_ind]*conj(Wnr_state_[band_i][r_ind]);
         }
     }
 
@@ -1041,7 +1041,7 @@ for(int band2=0;band2<4;band2++){
             dis_y = ((r1_min + r1_ind*d_r1)*((-1.0)/2.0)) + ((r2_min + r2_ind*d_r2)*((1.0)/2.0));
 	   
             FileWNROut<<r_ind<<"  "<<r1_ind<<"  "<<r2_ind<<"   "<< (r1_min + r1_ind*d_r1)/(Parameters_.a_moire)<<"   "<<(r2_min + r2_ind*d_r2)/(Parameters_.a_moire)<<"   "<<(dis_x)/(Parameters_.a_moire)<<"   "<<(dis_y)/(Parameters_.a_moire)<<"   "<<(Wnr_state_[band_i][r_ind]).real()<<"   "<< (Wnr_state_[band_i][r_ind]).imag() <<endl;
-            checknorm += d_r1*d_r2*Wnr_state_[band_i][r_ind]*conj(Wnr_state_[band_i][r_ind]);
+            checknorm += (sqrt(3.0)/2.0)*d_r1*d_r2*Wnr_state_[band_i][r_ind]*conj(Wnr_state_[band_i][r_ind]);
         }
         FileWNROut<<endl;
     }
@@ -1063,7 +1063,7 @@ for(int band2=0;band2<4;band2++){
         for(int r2_ind=0;r2_ind<space_slices;r2_ind++){
       
 	    r_ind=r1_ind + (space_slices)*r2_ind;
-		overlap_ += d_r1*d_r2*Wnr_state_[band1][r_ind]*conj(Wnr_state_[band2][r_ind]);
+		overlap_ += (sqrt(3.0)/2.0)*d_r1*d_r2*Wnr_state_[band1][r_ind]*conj(Wnr_state_[band2][r_ind]);
 
 	}
 	}	
@@ -1138,7 +1138,7 @@ qy_=q_val*sin(theta_val);
             dis_y = ((r1_min + r1_ind*d_r1)*((-1.0)/2.0)) + ((r2_min + r2_ind*d_r2)*((1.0)/2.0));
       	
 	
-      Mq_SphC[band_i][band_j][q_ind][theta_ind] += d_r1*d_r2*(
+      Mq_SphC[band_i][band_j][q_ind][theta_ind] += (sqrt(3.0)/2.0)*d_r1*d_r2*(
       conj(Wnr_state_[band_i][r_ind])*(Wnr_state_[band_j][r_ind]))
                             *exp(iota_complex*(qx_*((dis_x - 0*Wnr_center_x[band_i] )) + qy_*((dis_y  - 0*Wnr_center_y[band_i] ))));
                 }
@@ -1651,7 +1651,7 @@ qy_=q_val*sin(theta_val);
      int r_ind_l=r1_ind + (space_slices)*r2_ind;
 
 
-      MqR_SphC[band_i][band_j][q_ind][theta_ind][r1_+r2_*L1_eff] += d_r1*d_r2*(
+      MqR_SphC[band_i][band_j][q_ind][theta_ind][r1_+r2_*L1_eff] += (sqrt(3.0)/2.0)*d_r1*d_r2*(
       conj(Wnr_state_[band_i][r_ind_l])*(Wnr_state_[band_j][r_ind_r]))
                             *exp(iota_complex*(qx_*((dis_x - 0*Wnr_center_x[band_i] )) + qy_*((dis_y  - 0*Wnr_center_y[band_i] ))));
                 }
