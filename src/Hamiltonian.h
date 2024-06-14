@@ -65,6 +65,8 @@ public:
     Mat_2_Complex_doub Uij;
     Mat_2_Complex_doub U_onsite_inter;
 
+    int NBands;
+
 };
 
 
@@ -90,10 +92,13 @@ void Hamiltonian::Initialize(){
     //real space  effective H params
     L1_eff=6;L2_eff=6;
     
-    Tij.resize(4);
-    for(int band1=0;band1<4;band1++){
-    Tij[band1].resize(4);
-    for(int band2=0;band2<4;band2++){
+
+    NBands=2;
+
+    Tij.resize(NBands);
+    for(int band1=0;band1<NBands;band1++){
+    Tij[band1].resize(NBands);
+    for(int band2=0;band2<NBands;band2++){
     Tij[band1][band2].resize(L1_eff*L2_eff);
     for(int i=0;i<L1_eff*L2_eff;i++){
         Tij[band1][band2][i].resize(L1_eff*L2_eff);
@@ -109,16 +114,21 @@ void Hamiltonian::Initialize(){
 
 
 
-    Wnr_center_1.resize(4);Wnr_center_2.resize(4);
-    Wnr_center_x.resize(4);Wnr_center_y.resize(4);
+    Wnr_center_1.resize(NBands);Wnr_center_2.resize(NBands);
+    Wnr_center_x.resize(NBands);Wnr_center_y.resize(NBands);
 
+    if(NBands==4){
     Wnr_center_1[0]=(-1.0*Parameters_.a_moire)/((3.0));Wnr_center_2[0]=(-1.0*Parameters_.a_moire)/((3.0));
     Wnr_center_1[1]=(-1.0*Parameters_.a_moire)/((3.0));Wnr_center_2[1]=(-1.0*Parameters_.a_moire)/((3.0));
     Wnr_center_1[2]=(-2.0*Parameters_.a_moire)/((3.0));Wnr_center_2[2]=(1.0*Parameters_.a_moire)/((3.0));
     Wnr_center_1[3]=(-2.0*Parameters_.a_moire)/((3.0));Wnr_center_2[3]=(1.0*Parameters_.a_moire)/((3.0));
-    
+    }
+    if(NBands==2){
+        Wnr_center_1[0]=(-1.0*Parameters_.a_moire)/((3.0));Wnr_center_2[0]=(-1.0*Parameters_.a_moire)/((3.0));
+        Wnr_center_1[1]=(-2.0*Parameters_.a_moire)/((3.0));Wnr_center_2[1]=(1.0*Parameters_.a_moire)/((3.0));
+    }
 
-    for(int i=0;i<4;i++){	
+    for(int i=0;i<NBands;i++){
 	 Wnr_center_x[i] =  ((Wnr_center_1[i])*(sqrt(3.0)/2.0)) + ((Wnr_center_2[i])*(sqrt(3.0)/2.0));
 	 Wnr_center_y[i] = ((Wnr_center_1[i])*((-1.0)/2.0)) + ((Wnr_center_2[i])*((1.0)/2.0));
 	
@@ -127,7 +137,7 @@ void Hamiltonian::Initialize(){
 	}
 
 
-    eigs_bands.resize(4);	
+    eigs_bands.resize(NBands);
 
 
 } // ----------
@@ -499,7 +509,7 @@ Phi_state_[b].resize(space_slices*space_slices);
 //Wnr_center_x.resize(N_bands); Wnr_center_y.resize(N_bands);
 
 //For top most 2 bands [Honeycomb lattice]
-assert(N_bands==4);
+assert(N_bands==2);
 /*Wnr_center_x[0]=(-1.0*Parameters_.a_moire)/(sqrt(3.0));Wnr_center_y[0]=0.0;
 Wnr_center_x[1]=(-1.0*Parameters_.a_moire)/(sqrt(3.0));Wnr_center_y[1]=0.0;
 Wnr_center_x[2]=(-0.5*Parameters_.a_moire)/(sqrt(3.0));Wnr_center_y[2]=0.5*Parameters_.a_moire;
@@ -559,9 +569,9 @@ for(int r1_ind=0;r1_ind<space_slices;r1_ind++){
 
 		
                 std_dev = 0.01*Parameters_.a_moire;
-        //Overlaps_[m][n] += d_rx*d_ry*conj(Psi_state_[m][r_ind])*Gaussian(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], std_dev);
+        Overlaps_[m][n] += (sqrt(3.0)/2.0)*d_r1*d_r2*conj(Psi_state_[m][r_ind])*Gaussian(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], std_dev);
 
-	Overlaps_[m][n] += (sqrt(3.0)/2.0)*d_r1*d_r2*conj(Psi_state_[m][r_ind])*P_orbital_WF(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], alpha, n);
+    //Overlaps_[m][n] += (sqrt(3.0)/2.0)*d_r1*d_r2*conj(Psi_state_[m][r_ind])*P_orbital_WF(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], alpha, n);
 
 //cout<<r1_ind<<"  "<<r2_ind<<"  "<<d_r1*d_r2*P_orbital_WF(rx_, ry_, Wnr_center_x[n], Wnr_center_y[n], alpha, n)<<endl;
 	//Overlaps_[m][n] += d_r1*d_r2*conj(Psi_state_[m][r_ind]);
@@ -659,21 +669,19 @@ S_inv_sqrt(n,m) += S_mat(n,k)*(1.0/sqrt(S_eigs_[k]))*conj(S_mat(m,k));
 //cout<<"S_eigs_[0] = "<<S_eigs_[0]<<endl;
 cout<<"Printing S_mat after diagonalizing----------"<<endl;
 S_mat.print();
-
-cout<<"S_eigs_[0] = "<<S_eigs_[0]<<endl;
-cout<<"S_eigs_[1] = "<<S_eigs_[1]<<endl;
-cout<<"S_eigs_[2] = "<<S_eigs_[2]<<endl;
-cout<<"S_eigs_[3] = "<<S_eigs_[3]<<endl;
+for(int band_n=0;band_n<NBands;band_n++){
+cout<<"S_eigs_["<<band_n<<"] = "<<S_eigs_[band_n]<<endl;
+}
 cout<<"Printing S_inv_sqrt ---------------"<<endl;
 S_inv_sqrt.print();
 
 
 
 //Create Unitary_opr
-for(int band_n=0;band_n<4;band_n++){
-for(int band_l=0;band_l<4;band_l++){
+for(int band_n=0;band_n<NBands;band_n++){
+for(int band_l=0;band_l<NBands;band_l++){
 Unitary_opr[band_n][band_l]=0;
-for(int band_m=0;band_m<4;band_m++){
+for(int band_m=0;band_m<NBands;band_m++){
 Unitary_opr[band_n][band_l] += S_inv_sqrt(band_m,band_n)*Overlaps_[band_l][band_m];
 }
 }
@@ -687,8 +695,8 @@ Unitary_opr[band_n][band_l] += S_inv_sqrt(band_m,band_n)*Overlaps_[band_l][band_
 double dis_x, dis_y;
 int center_=(L1_eff/2) + L1_eff*(L2_eff/2);
 int center_neigh;
-for(int band_alpha=0;band_alpha<4;band_alpha++){
-for(int band_beta=0;band_beta<4;band_beta++){
+for(int band_alpha=0;band_alpha<NBands;band_alpha++){
+for(int band_beta=0;band_beta<NBands;band_beta++){
 for(int r2_=0;r2_<L2_eff;r2_++){
         for(int r1_=0;r1_<L1_eff;r1_++){
 	dis_x = ((sqrt(3.0)/2.0)*(r1_-(L1_eff/2)) +  (sqrt(3.0)/2.0)*(r2_-(L2_eff/2)))*Parameters_.a_moire;
@@ -746,15 +754,15 @@ void Hamiltonian::Get_Wannier_function(Mat_1_int bands_){
     band_number=bands_;
 
 //---remove later-----
-double d_rx, d_ry, rx_min, ry_min;
+//double d_rx, d_ry, rx_min, ry_min;
 //--------------------
 
 
     double r1_min, r2_min, r1_max, r2_max, d_r1, d_r2;
-    r1_min=-3.0*Parameters_.a_moire + Wnr_center_1[0];
-    r2_min=-3.0*Parameters_.a_moire + Wnr_center_2[0];
-    r1_max=3.0*Parameters_.a_moire + Wnr_center_1[0];
-    r2_max=3.0*Parameters_.a_moire + Wnr_center_2[0];
+    r1_min=-2.0*Parameters_.a_moire + Wnr_center_1[0];
+    r2_min=-2.0*Parameters_.a_moire + Wnr_center_2[0];
+    r1_max=2.0*Parameters_.a_moire + Wnr_center_1[0];
+    r2_max=2.0*Parameters_.a_moire + Wnr_center_2[0];
     int r_ind;
     int space_slices=Parameters_.r_slices;//N=18n+1
     d_r1=(r1_max-r1_min)/(space_slices-1);
@@ -773,9 +781,9 @@ double d_rx, d_ry, rx_min, ry_min;
     int q_slices=Parameters_.q_slices;
     d_qx=(qx_max-qx_min)/(q_slices);
     d_qy=(qy_max-qy_min)/(q_slices);
-    double eta_q=0.001;
-    double d_sqr=360000;
-    double screening=0.0;
+//    double eta_q=0.001;
+//    double d_sqr=360000;
+//    double screening=0.0;
 
 
     double q_max, d_q,  d_theta;
@@ -861,8 +869,8 @@ double d_rx, d_ry, rx_min, ry_min;
 
 
 
-for(int band1=0;band1<4;band1++){
-for(int band2=0;band2<4;band2++){
+for(int band1=0;band1<NBands;band1++){
+for(int band2=0;band2<NBands;band2++){
  for(int r2_=0;r2_<L2_eff;r2_++){
         for(int r1_=0;r1_<L1_eff;r1_++){
             center_neigh = (r1_) + L1_eff*(r2_);
@@ -901,8 +909,8 @@ for(int band2=0;band2<4;band2++){
 */
             //--------------------
 
-	complex<double> phase_1=conj(Ham_(0,eigen_no))*(1.0/abs(Ham_(0,eigen_no)));
-	complex<double> phase_2=conj(Ham_(0, eigen_no-1))*(1.0/abs(Ham_(0,eigen_no-1)));
+    //complex<double> phase_1=conj(Ham_(0,eigen_no))*(1.0/abs(Ham_(0,eigen_no)));
+    //complex<double> phase_2=conj(Ham_(0, eigen_no-1))*(1.0/abs(Ham_(0,eigen_no-1)));
  	
 
             for(int r1_ind=0;r1_ind<space_slices;r1_ind++){
@@ -1081,8 +1089,8 @@ for(int band2=0;band2<4;band2++){
     //cout<<"Tij[0][0+a1] = "<<Tij[center_][center_p1]<<endl;
 
 	cout << setprecision(6)<<endl;
-	for(int band1=0;band1<4;band1++){
-	for(int band2=0;band2<4;band2++){
+    for(int band1=0;band1<NBands;band1++){
+    for(int band2=0;band2<NBands;band2++){
          cout<<"--------------------------------------Tij["<<band1<< "]["<<band2<< "][center][neigh]--------------------------------------"<<endl;
 
 
@@ -1099,6 +1107,10 @@ for(int band2=0;band2<4;band2++){
         }
 	}
 
+
+
+
+//assert(false);
 
     //For Uij [same orbital]--------------------------------------------------------------------//
 
@@ -1260,7 +1272,7 @@ double V_;
 
 
       //Mq_SphC[q_ind][theta_ind]
-                    V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
                     U_onsite_inter[band1][band2]+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band2][band2][q_ind][theta_ind]));
 		    //U_onsite_inter[band1][band1]+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band1][band1][q_ind][theta_ind]));
                 }
@@ -1305,7 +1317,7 @@ complex<double> val_;
 
 
       //Mq_SphC[q_ind][theta_ind]
-                    V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
                     val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band2][band2][q_ind][theta_ind]))*exp(iota_complex* (qx_*(dis_x) + qy_*(dis_y))  );
                     //U_onsite_inter[band1][band1]+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band1][band1][q_ind][theta_ind]));
                 }
@@ -1347,7 +1359,7 @@ complex<double> val_;
 
 
       //Mq_SphC[q_ind][theta_ind]
-                    V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
                     val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band2][band2][q_ind][theta_ind]))*exp(iota_complex* (qx_*(dis_x) + qy_*(dis_y))  );
                     //U_onsite_inter[band1][band1]+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band1][band1][q_ind][theta_ind]));
                 }
@@ -1388,7 +1400,7 @@ for(int band2=0;band2<N_bands;band2++){
 
 
       //Mq_SphC[q_ind][theta_ind]
-                    V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
                     val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band2][q_ind][theta_ind])*(Mq_SphC[band1][band2][q_ind][theta_ind]));
                 }
             }
@@ -1429,7 +1441,7 @@ for(int band2=0;band2<N_bands;band2++){
 
 
       //Mq_SphC[q_ind][theta_ind]
-                    V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
                     val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band1][band2][q_ind][theta_ind]));
                 }
             }
@@ -1470,7 +1482,7 @@ for(int band2=0;band2<N_bands;band2++){
 
 
       //Mq_SphC[q_ind][theta_ind]
-                    V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
                     val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band_fixed][band_fixed][q_ind][theta_ind])*(Mq_SphC[band1][band2][q_ind][theta_ind]));
                 }
             }
@@ -1519,7 +1531,7 @@ for(int band2=0;band2<N_bands;band2++){
 
 
       //Mq_SphC[q_ind][theta_ind]
-                 V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                 V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
                  val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band3][band1][q_ind][theta_ind])*(Mq_SphC[band4][band2][q_ind][theta_ind]));
                 }
             }
@@ -1707,15 +1719,15 @@ dis_y_temp=-1.0*dis_y;
 
 
 
-for(int orb1_=0;orb1_<2;orb1_++){
-for(int orb2_=0;orb2_<2;orb2_++){
-for(int orb3_=0;orb3_<2;orb3_++){
-for(int orb4_=0;orb4_<2;orb4_++){
+for(int orb1_=0;orb1_<1;orb1_++){
+for(int orb2_=0;orb2_<1;orb2_++){
+for(int orb3_=0;orb3_<1;orb3_++){
+for(int orb4_=0;orb4_<1;orb4_++){
 
-int band1_= orb1_ + dof1_*2;
-int band2_= orb2_ + dof2_*2;
-int band3_= orb3_ + dof3_*2;
-int band4_= orb4_ + dof4_*2; 
+int band1_= orb1_ + dof1_*1;
+int band2_= orb2_ + dof2_*1;
+int band3_= orb3_ + dof3_*1;
+int band4_= orb4_ + dof4_*1;
 
 //dof=0 means center site and sublattice 0
 //dof=1 means neighbour (+a1,-a2) site and sublattice 1 
@@ -1733,7 +1745,7 @@ complex<double> mat_elmt_left, mat_elmt_right;
 
 
       //Mq_SphC[q_ind][theta_ind]
-                    V_= (2*PI*14.399*1000)/(Parameters_.eps_DE);
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
 
 	if(dof3_==dof1_ ){
 	mat_elmt_left = conj(Mq_SphC[band3_][band1_][q_ind][theta_ind]);
@@ -1824,6 +1836,8 @@ Orbital2_array_ordered[j]=Orbital2_array[i_max];
 Orbital3_array_ordered[j]=Orbital3_array[i_max];
 Orbital4_array_ordered[j]=Orbital4_array[i_max];
 
+//For px-py model
+/*
 orb1_= Orbital1_array_ordered[j]%2;
 orb2_= Orbital2_array_ordered[j]%2;
 orb3_= Orbital3_array_ordered[j]%2;
@@ -1833,6 +1847,19 @@ site1_ = int((1.0*Orbital1_array_ordered[j] +0.5)/(2.0));sublattice1_ = site1_;
 site2_ = int((1.0*Orbital2_array_ordered[j] +0.5)/(2.0));sublattice2_ = site2_;
 site3_ = int((1.0*Orbital3_array_ordered[j] +0.5)/(2.0));sublattice3_ = site3_;
 site4_ = int((1.0*Orbital4_array_ordered[j] +0.5)/(2.0));sublattice4_ = site4_;
+*/
+
+
+site1_ = Orbital1_array_ordered[j];
+site2_ = Orbital2_array_ordered[j];
+site3_= Orbital3_array_ordered[j];
+site4_= Orbital4_array_ordered[j];
+
+orb1_=0;orb2_=0;orb3_=0;orb4_=0;
+sublattice1_ = site1_;
+sublattice2_ = site2_;
+sublattice3_ = site3_;
+sublattice4_ = site4_;
 
 
 //fileout_onsite_interaction<<"["<< Orbital1_array_ordered[j]<< "]"<<"["<< Orbital2_array_ordered[j]<< "]"<<"["<<Orbital3_array_ordered[j] << "]"<<"["<< Orbital4_array_ordered[j]<< "]"<<"    "<<Vals_array_ordered[j]<<"  "<<endl;

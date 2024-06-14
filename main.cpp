@@ -146,11 +146,12 @@ int main(int argc, char *argv[]) {
 	Mat_1_int bands_;bands_.clear();
 
 	//Honeycomb-1orb
-//	bands_.push_back(0);bands_.push_back(1);
+         bands_.push_back(0);bands_.push_back(1);
 
 	//Honeycomb- 2orb (px,py)
-	bands_.push_back(2);bands_.push_back(3);bands_.push_back(4);bands_.push_back(5);
-        Hamiltonian_.Get_Wannier_function(bands_);
+//	bands_.push_back(2);bands_.push_back(3);bands_.push_back(4);bands_.push_back(5);
+
+	Hamiltonian_.Get_Wannier_function(bands_);
 
     }
 

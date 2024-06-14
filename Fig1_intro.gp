@@ -38,7 +38,7 @@ set key samplen 1.0
 
 
 #set label 7 at 2.8,8.0
-#set label 7 '\fontsize{16}{60}\selectfont{\color{red} $ ? $}'
+#set label 7 '\fontsize{16}{60}\selectfont{\color{black} $ ? $}'
 
 
 #set label 8 at 6,18
@@ -69,22 +69,23 @@ set ytics offset 0.4,0
 #set xtics ( '\fontsize{12}{60}\selectfont$0$' 0 , '\fontsize{12}{60}\selectfont$\pi/2$' 1.5707 ,'\fontsize{12}{60}\selectfont$\pi$' 3.14159  ,'\fontsize{12}{60}\selectfont$3\pi/2$' 4.7123850, '\fontsize{12}{60}\selectfont$2\pi$' 6.28318)
 #set cbtics ( '\fontsize{12}{60}\selectfont$0$' 0 ,'\fontsize{12}{60}\selectfont$5$' 5  ,'\fontsize{12}{60}\selectfont$10$' 10, '\fontsize{12}{60}\selectfont$15$' 15  ,'\fontsize{12}{60}\selectfont$20$' 20  )
 
-set ytics ( '\fontsize{16}{60}\selectfont-$80$' -80.0,  '\fontsize{16}{60}\selectfont$$' -70.0,'\fontsize{16}{60}\selectfont-$60$' -60.0,  '\fontsize{16}{60}\selectfont$$' -50.0, '\fontsize{16}{60}\selectfont-$40$' -40.0,  '\fontsize{16}{60}\selectfont$$' -30.0,'\fontsize{16}{60}\selectfont-$20$' -20.0,  '\fontsize{16}{60}\selectfont$$' -10.0, '\fontsize{16}{60}\selectfont$0$' 0.0,  '\fontsize{16}{60}\selectfont$$' 10.0,'\fontsize{16}{60}\selectfont$$' 20.0)
+set ytics ( '\fontsize{16}{60}\selectfont-$200$' -200.0, '\fontsize{16}{60}\selectfont-$175$' -175.0,  '\fontsize{16}{60}\selectfont-$150$' -150.0, '\fontsize{16}{60}\selectfont-$125$' -125.0, '\fontsize{16}{60}\selectfont-$100$' -100, '\fontsize{16}{60}\selectfont-$75$' -75.0, '\fontsize{16}{60}\selectfont-$50$' -50.0,  '\fontsize{16}{60}\selectfont-$25$' -25.0, '\fontsize{16}{60}\selectfont$0$' -0.0)
+
 set xtics ( '\fontsize{16}{60}\selectfont$\Gamma$' 0.0, '\fontsize{16}{60}\selectfont$K$' 24, '\fontsize{16}{60}\selectfont$M$' 36, '\fontsize{16}{60}\selectfont$\Gamma$' 72 )
 #set ytics offset 0.7
 
 #set pm3d map
 #set pm3d corners2color c1
 set xr [0.0:72]
-set yr [-80:4]
+set yr [-200:4]
 #set cbr [0:20]
 #set palette define (0 "white", 0.05 "white", 0.15 "#C5E1EF", 0.25 "#9EC9E2", 0.38 "#3C93C2", 0.6 "#0D4A70", 1.0 "black")
 
 #LzLzkw_OBC_lambda0.0_L36_eta0.02.txt  MzMzkw_OBC_lambda0.0_L36_eta0.02.txt
 #sp "MzMzkw_OBC_lambda0.45_L16_eta0.05_3orb_Parzen.txt" u 1:2:3 w pm3d ti ''
 
-#p "Bands_energy_MoS2_theta_1.5.txt" u 1:(($4-3)*0.17) w p pt 4 ps 1.5 lc "red" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:(($5-3)*0.17) w p pt 4 ps 1.5 lc "red" ti "",
-p "Bands_energy_MoS2_theta_1.5.txt" u 1:6 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:7 w l lw 10 lc "black" ti "",  "Bands_energy_MoS2_theta_1.5.txt" u 1:8 w l lw 10 lc "red" ti "",  "Bands_energy_MoS2_theta_1.5.txt" u 1:9 w l lw 10 lc "red" ti "",  "Bands_energy_MoS2_theta_1.5.txt" u 1:10 w l lw 10 lc "red" ti "",  "Bands_energy_MoS2_theta_1.5.txt" u 1:11 w l lw 10 lc "red" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:12 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:13 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:14 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:15 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:16 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:17 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:18 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:19 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:20 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:21 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:22 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:23 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:24 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:25 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:26 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:27 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:28 w l lw 10 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:29 w l lw 10 lc "black" ti ""
+
+p "Bands_energy.txt" u 1:6 w l lw 10 lc "blue" ti "", "Bands_energy.txt" u 1:7 w l lw 10 lc "blue" ti "",  "Bands_energy.txt" u 1:8 w l lw 10 lc "black" ti "",  "Bands_energy.txt" u 1:9 w l lw 10 lc "black" ti "",  "Bands_energy.txt" u 1:10 w l lw 10 lc "black" ti "",  "Bands_energy.txt" u 1:11 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:12 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:13 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:14 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:15 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:16 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:17 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:18 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:19 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:20 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:21 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:22 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:23 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:24 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:25 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:26 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:27 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:28 w l lw 10 lc "black" ti "", "Bands_energy.txt" u 1:29 w l lw 10 lc "black" ti ""
 
 unset label 7
 unset label 8
@@ -126,7 +127,7 @@ set key samplen 1.0
 
 
 #set label 7 at 2.8,8.0
-#set label 7 '\fontsize{16}{60}\selectfont{\color{red} $ ? $}'
+#set label 7 '\fontsize{16}{60}\selectfont{\color{black} $ ? $}'
 
 
 #set label 8 at 6,18
@@ -172,7 +173,7 @@ set yr [-1.5:1.5]
 #LzLzkw_OBC_lambda0.0_L36_eta0.02.txt  MzMzkw_OBC_lambda0.0_L36_eta0.02.txt
 #sp "MzMzkw_OBC_lambda0.45_L16_eta0.05_3orb_Parzen.txt" u 1:2:3 w pm3d ti ''
 
-p "Bands_energy_MoS2_theta_1.5.txt" u 1:6 w l lw 16 lc "red" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:7 w l lw 16 lc "red" ti "",  "Bands_energy_MoS2_theta_1.5.txt" u 1:(($4-3)*0.17) w l dt 3 lw 8 lc "black" ti "", "Bands_energy_MoS2_theta_1.5.txt" u 1:(($5-3)*0.17) w l dt 3 lw 8 lc "black" ti ""
+#p "Bands_energy.txt" u 1:6 w l lw 16 lc "black" ti "", "Bands_energy.txt" u 1:7 w l lw 16 lc "black" ti "",  "Bands_energy.txt" u 1:(($4-3)*0.17) w l dt 3 lw 8 lc "black" ti "", "Bands_energy.txt" u 1:(($5-3)*0.17) w l dt 3 lw 8 lc "black" ti ""
 
 
 unset label 7
@@ -354,7 +355,7 @@ set pm3d corners2color c1
 set palette define (0.0 "#5082FF",  0.78 "white", 0.91 "#FF7050", 0.97 "#FFCF50",  1.0 "#FFF250")
 #set palette define (0.0 "#5082FF",  0.78 "white", 0.91 "#FF7050", 0.97 "#FFCF50",  1.0 "#FFF250")
 
-#set palette define (0.0 "white", 0.85 "white", 1.0 "blue")
+#set palette define (0.0 "white", 0.85 "white", 1.0 "black")
 #set arrow 1 from .577350269,0 to 1.15470053837,0 nohead dt 1 lw 1 lc "black" front
 #set arrow 2 from .577350269,0 to .577350269,1 nohead dt 1 lw 1 lc "black" front
 #set arrow 3 from .577350269,0 to 1.44337567278,0.5 nohead dt 1 lw 1 lc "black" front

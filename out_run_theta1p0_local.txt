@@ -1,0 +1,105 @@
+'MoireBands'
+____________________________________
+Reading the inputfile name: input_MoS2.inp
+____________________________________
+V1_param_in_meV = 39.45
+V2_param_in_meV = 6.5
+V3_param_in_meV = 10
+Psi_param_in_radians = 3.14159
+omega_param_in_meV = 0
+Grid_ReciprocalLattice_L1 = 18
+Grid_ReciprocalLattice_L2 = 18
+BZ_L1 = 72
+BZ_L2 = 72
+q_slices = 200
+theta_slices = 200
+r_slices = 271
+a_monolayer_in_angstorm = 3.182
+Twist_Theta_in_radians = 0.0174772
+a_moire (in Angstorm)= 182.066
+MStar_in_RestMass = 0.9
+eps_DE = 1
+Layer_Potential_Diff_Vz_in_meV = 0
+Wnr_center_rxry[0]=(-105.116, 0)
+Wnr_center_rxry[1]=(-105.116, 0)
+Wnr_center_rxry[2]=(-52.5579, 91.0329)
+Wnr_center_rxry[3]=(-52.5579, 91.0329)
+E_gamma_max = 82.5557
+0  0
+-1  1
+-2  2
+-3  3
+-4  4
+-5  5
+-6  6
+-7  7
+-8  8
+-9  9
+-10  10
+-11  11
+-12  12
+-13  13
+-14  14
+-15  15
+-16  16
+-17  17
+-18  18
+-19  19
+-20  20
+-21  21
+-22  22
+-23  23
+-24  24
+-22  25
+-20  26
+-18  27
+-16  28
+-14  29
+-12  30
+-10  31
+-8  32
+-6  33
+-4  34
+-2  35
+0  36
+0  35
+0  34
+0  33
+0  32
+0  31
+0  30
+0  29
+0  28
+0  27
+0  26
+0  25
+0  24
+0  23
+0  22
+0  21
+0  20
+0  19
+0  18
+0  17
+0  16
+0  15
+0  14
+0  13
+0  12
+0  11
+0  10
+0  9
+0  8
+0  7
+0  6
+0  5
+0  4
+0  3
+0  2
+0  1
+0  0
+d_r1, d_r2 = 4.04591, 4.04591
+r1_min,r1_max = -606.886,  485.509
+r2_min,r2_max = -606.886,  485.509
+Wnr_center_1[0],Wnr_center_2[0] = -60.6886,  -60.6886
+doing 0  0

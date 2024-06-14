@@ -14,6 +14,7 @@
 }%
 \makeatother
 % Load packages
+\usepackage{calc}
 \usepackage{graphicx}
 \usepackage{color}
 \makeatletter
@@ -138,44 +139,25 @@
     \setlength{\fboxsep}{1pt}%
 \begin{picture}(7200.00,5760.00)%
     \gplgaddtomacro\gplbacktext{%
-      \csname LTb\endcsname%
-      \put(1094,460){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$80$}}%
-      \put(1094,1077){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(1094,1694){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$60$}}%
-      \put(1094,2311){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(1094,2928){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$40$}}%
-      \put(1094,3545){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(1094,4162){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$20$}}%
-      \put(1094,4779){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(1094,5396){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$0$}}%
+      \csname LTb\endcsname%%
+      \put(1094,460){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$200$}}%
+      \put(1094,1095){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$175$}}%
+      \put(1094,1730){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$150$}}%
+      \put(1094,2366){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$125$}}%
+      \put(1094,3001){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$100$}}%
+      \put(1094,3636){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$75$}}%
+      \put(1094,4271){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$50$}}%
+      \put(1094,4906){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$25$}}%
+      \put(1094,5541){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$0$}}%
       \put(1152,220){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$\Gamma$}}%
       \put(1968,220){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$K$}}%
       \put(2376,220){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$M$}}%
       \put(3599,220){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$\Gamma$}}%
     }%
     \gplgaddtomacro\gplfronttext{%
-      \csname LTb\endcsname%
-      \put(448,3451){\rotatebox{-270}{\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$E(meV)$}}}%
+      \csname LTb\endcsname%%
+      \put(368,3451){\rotatebox{-270}{\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$E(meV)$}}}%
       \put(4007,300){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$$}}%
-    }%
-    \gplgaddtomacro\gplbacktext{%
-      \csname LTb\endcsname%
-      \put(4478,3456){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(4478,3821){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont-$1$}}%
-      \put(4478,4185){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(4478,4550){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$0$}}%
-      \put(4478,4914){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(4478,5279){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$1$}}%
-      \put(4478,5643){\makebox(0,0)[r]{\strut{}\fontsize{16}{60}\selectfont$$}}%
-      \put(4536,3216){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$\Gamma$}}%
-      \put(5304,3216){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$K$}}%
-      \put(5688,3216){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$M$}}%
-      \put(6839,3216){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$\Gamma$}}%
-    }%
-    \gplgaddtomacro\gplfronttext{%
-      \csname LTb\endcsname%
-      \put(4024,4949){\rotatebox{-270}{\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$E(meV)$}}}%
-      \put(7319,3296){\makebox(0,0){\strut{}\fontsize{16}{60}\selectfont$$}}%
     }%
     \gplbacktext
     \put(0,0){\includegraphics{Fig1_intro-inc}}%

@@ -28,7 +28,7 @@ set key samplen 1.0
 
 
 set label 7 at 1.5,2.8
-set label 7 '\fontsize{16}{60}\selectfont{$\Psi_{B1}(r)$}'
+set label 7 '\fontsize{16}{60}\selectfont{$\Psi_{1}(r)$}'
 
 
 
@@ -156,8 +156,9 @@ set cbtics offset 0,2.9
 
 #set cbtics ('\fontsize{8}{60}\selectfont-$300$' -300,'\fontsize{8}{60}\selectfont-$200$' -200 ,'\fontsize{8}{60}\selectfont-$100$' -100,   '\fontsize{8}{60}\selectfont$0$' 0, '\fontsize{8}{60}\selectfont$100$' 100 )
 
-set cbr [-0.05:0.05]
-sp "Wannier_functions_band3.txt" u 6:7:8 w pm3d ti ""
+set cbr [-0.06:0.06]
+sp "Wannier_functions_band1.txt" u 6:7:8 w pm3d ti ""
+
 
 
 

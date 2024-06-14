@@ -108,8 +108,9 @@ getline(in_file,line_str);
 
 
 
-double Dis_max=1.002; //in units of a_m 0.58 for only HC nearest neighbour, 1.001 for upto Next-nearest neighbout on Honeycomb lattice
-
+double Dis_max=1.16;
+ //in units of a_m 0.58 for only HC nearest neighbour, 1.001 for upto Next-nearest neighbout on Honeycomb lattice
+// 1.16 for Next to Next-nearest neighbour (NNNN)
 double dis_1x, dis_1y, dis_2x, dis_2y, dis_;
 complex<double> val_;
 int i1_center, i2_center;
@@ -159,7 +160,6 @@ t0_hop<<endl;
 
 
 //Nearest plusa1 neigbour-unitcell hopping (it includes only Honeycomb NN, NNN, NNNN)
-//NNNN is not included by hand
 string t1_plus_a1_hop_file="t1_plus_a1_hop.txt";
 ofstream t1_plus_a1_hop(t1_plus_a1_hop_file.c_str());
 
@@ -240,7 +240,7 @@ t1_minus_a2_hop<<endl;
 
 //Nearest plusa1 neigbour-unitcell hopping (it includes only Honeycomb NN, NNN, NNNN)
 //NNNN is not included by hand
-string t1_minus_a1_plus_a2_hop_file="t1_minus_a1_plus_a2_hop.txt";
+/*string t1_minus_a1_plus_a2_hop_file="t1_minus_a1_plus_a2_hop.txt";
 ofstream t1_minus_a1_plus_a2_hop(t1_minus_a1_plus_a2_hop_file.c_str());
 
 for(int spin1=0;spin1<2;spin1++){
@@ -278,6 +278,7 @@ t1_minus_a1_plus_a2_hop<<val_<<"  ";
 t1_minus_a1_plus_a2_hop<<endl;
 }}}
 
+*/
 
 string t1_plus_a1_minus_a2_hop_file="t1_plus_a1_minus_a2_hop.txt";
 ofstream t1_plus_a1_minus_a2_hop(t1_plus_a1_minus_a2_hop_file.c_str());
@@ -316,6 +317,57 @@ t1_plus_a1_minus_a2_hop<<val_<<"  ";
 }}}
 t1_plus_a1_minus_a2_hop<<endl;
 }}}
+
+
+
+
+
+
+string t1_plus_a1_minus_2a2_hop_file="t1_plus_a1_minus_2a2_hop.txt";
+ofstream t1_plus_a1_minus_2a2_hop(t1_plus_a1_minus_2a2_hop_file.c_str());
+
+for(int spin1=0;spin1<2;spin1++){
+for(int orb1=0;orb1<2;orb1++){
+for(int atom1=0;atom1<2;atom1++){
+
+for(int spin2=0;spin2<2;spin2++){
+for(int orb2=0;orb2<2;orb2++){
+for(int atom2=0;atom2<2;atom2++){
+
+dis_1x=atom1*(1.0/(sqrt(3.0)*2.0));
+dis_1y=atom1*(1.0/(2.0));
+
+dis_2x= sqrt(3.0)/2.0 + atom2*(1.0/(sqrt(3.0)*2.0));
+dis_2y= 1.5  + atom2*(1.0/(2.0));
+
+dis_=sqrt( (dis_1x-dis_2x)*(dis_1x-dis_2x)  + (dis_1y-dis_2y)*(dis_1y-dis_2y)  );
+
+if(dis_<Dis_max){
+val_= abs(abs(1.0*spin1-1.0*spin2)-1.0)*Thop[2*atom1+orb1][2*atom2+orb2][i1_center-1][i2_center+2];
+}
+else{
+val_=0.0;
+}
+
+if(abs(val_)<0.00001){
+val_=0.0;
+}
+
+
+t1_plus_a1_minus_2a2_hop<<val_<<"  ";
+//t1_minus_a1_plus_a2_hop<<dis_<<"  ";
+
+}}}
+t1_plus_a1_minus_2a2_hop<<endl;
+}}}
+
+
+
+
+
+
+
+
 
 
 

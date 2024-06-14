@@ -12,7 +12,7 @@ public:
     int BZ_L1, BZ_L2;
     double Vz_;
     int q_slices, theta_slices, r_slices;
-
+    double d_screening;
 
 //	q_slices=200
 //theta_slices=200
@@ -38,6 +38,7 @@ void Parameters::Initialize(string inputfile_){
     V2_param = matchstring(inputfile_,"V2_param_in_meV");
     V3_param = matchstring(inputfile_,"V3_param_in_meV");
     Psi_param = matchstring(inputfile_,"Psi_param_in_radians");
+    d_screening = matchstring(inputfile_,"distance_to_gate_in_angstorm");
     omega_param = matchstring(inputfile_,"omega_param_in_meV");
     Grid_L1 = int(matchstring(inputfile_,"Grid_ReciprocalLattice_L1"));
     Grid_L2 = int(matchstring(inputfile_,"Grid_ReciprocalLattice_L2"));
