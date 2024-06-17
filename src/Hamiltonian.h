@@ -1419,6 +1419,50 @@ cout<<"----------------------------------------"<<endl;
 
 
 
+//band2 is present at "-a2" w.r.t to site with band1
+cout<<"------  '-a2'   WRONG Hund's coupling[band1][band2]----------------------"<<endl;
+r1_neigh=(L1_eff/2);
+r2_neigh=(L2_eff/2)-1;
+dis_x = ((sqrt(3.0)/2.0)*(r1_neigh-((1.0*L1_eff)/2.0)) +  (sqrt(3.0)/2.0)*(r2_neigh-((1.0*L2_eff)/2.0)))*Parameters_.a_moire;
+dis_y = (-0.5*(r1_neigh-((1.0*L1_eff)/2.0)) + 0.5*(r2_neigh-((1.0*L2_eff)/2.0)))*Parameters_.a_moire;
+
+for(int band1=0;band1<N_bands;band1++){
+
+//int band2=(1-(band1%2))+2*(band1/2);
+for(int band2=0;band2<N_bands;band2++){
+double V_;
+complex<double> val_;
+
+                val_=0.0;
+            //dis_x = ((r1_-(L1_eff/2)))*Parameters_.a_moire;
+            //dis_y = ((r2_-(L2_eff/2)))*Parameters_.a_moire;
+                for(int q_ind=0;q_ind<q_slices;q_ind++){
+                 q_val = q_ind*d_q;
+                for(int theta_ind=0;theta_ind<theta_slices;theta_ind++){
+                 theta_val = theta_ind*d_theta;
+                qx_=q_val*cos(theta_val);
+                qy_=q_val*sin(theta_val);
+
+
+      //Mq_SphC[q_ind][theta_ind]
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
+                    val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band2][q_ind][theta_ind])*(Mq_SphC[band1][band2][q_ind][theta_ind]))*exp(iota_complex* (qx_*(dis_x) + qy_*(dis_y))  );
+                    //U_onsite_inter[band1][band1]+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*conj(Mq_SphC[band1][band1][q_ind][theta_ind])*(Mq_SphC[band1][band1][q_ind][theta_ind]));
+                }
+            }
+
+cout<<val_<<"  ";
+//cout<<band1<<"  "<<band2<<"   "<<U_onsite_inter[band1][band2]<<"   "<<endl;
+
+
+}
+cout<<endl;
+}
+cout<<"----------------------------------------"<<endl;
+
+
+
+
 cout<<"-------Interaction Assisted Hopping Type-1 [band1][band2], hops from band2 to band1(with already 1 el at band1)-------------------"<<endl;
 for(int band1=0;band1<N_bands;band1++){
 for(int band2=0;band2<N_bands;band2++){
@@ -1687,7 +1731,7 @@ qy_=q_val*sin(theta_val);
 
 for(int r1_neigh_offset=0;r1_neigh_offset<2;r1_neigh_offset++){
 
-cout<<"-------InterSite Exchange ("<<r1_neigh_offset<<"*a1, -a2) -------------------"<<endl;
+cout<<"-------Nearest neighbour InterSite Exchange ("<<r1_neigh_offset<<"*a1, -a2) -------------------"<<endl;
 r1_neigh=(L1_eff/2)+r1_neigh_offset;
 r2_neigh=(L2_eff/2)-1;
 dis_x = ((sqrt(3.0)/2.0)*(r1_neigh-((1.0*L1_eff)/2.0)) +  (sqrt(3.0)/2.0)*(r2_neigh-((1.0*L2_eff)/2.0)))*Parameters_.a_moire;
@@ -1765,10 +1809,9 @@ complex<double> mat_elmt_left, mat_elmt_right;
         mat_elmt_right = (MqR_SphC[band2_][band4_][q_ind][theta_ind][r1_neigh+r2_neigh*L1_eff]);
         }
         if(dof2_==0 && dof4_==1){
-        mat_elmt_right = (MqR_SphC[band4_][band2_][q_ind][theta_ind][r1_neigh+r2_neigh*L1_eff])*exp(iota_complex* (qx_*(dis_x) + qy_*(dis_y)));;
+        mat_elmt_right = MqR_SphC[band4_][band2_][q_ind][theta_ind][r1_neigh+r2_neigh*L1_eff]*exp(iota_complex* (qx_*(dis_x) + qy_*(dis_y)));
         }
 	
-
 
 
         val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*mat_elmt_left*mat_elmt_right)*exp(iota_complex* (qx_*(dis_x_temp) + qy_*(dis_y_temp)));
@@ -1874,6 +1917,207 @@ cout<<"----------------------------------------"<<endl;
 }//r1_neigh_offset
 
 
+
+
+
+Vals_array.resize(16*N_bands*N_bands*N_bands*N_bands);
+Orbital1_array.resize(16*N_bands*N_bands*N_bands*N_bands);
+Orbital2_array.resize(16*N_bands*N_bands*N_bands*N_bands);
+Orbital3_array.resize(16*N_bands*N_bands*N_bands*N_bands);
+Orbital4_array.resize(16*N_bands*N_bands*N_bands*N_bands);
+
+//Nearest neighbour all in Honeycomb lattice language
+for(int r1_neigh_offset=0;r1_neigh_offset<2;r1_neigh_offset++){
+
+cout<<"------- Next Nearest  and Nearest neighbour  InterSite Exchange ("<<r1_neigh_offset<<"*a1, -a2) -------------------"<<endl;
+r1_neigh=(L1_eff/2)+r1_neigh_offset;
+r2_neigh=(L2_eff/2)-1;
+dis_x = ((sqrt(3.0)/2.0)*(r1_neigh-((1.0*L1_eff)/2.0)) +  (sqrt(3.0)/2.0)*(r2_neigh-((1.0*L2_eff)/2.0)))*Parameters_.a_moire;
+dis_y = (-0.5*(r1_neigh-((1.0*L1_eff)/2.0)) + 0.5*(r2_neigh-((1.0*L2_eff)/2.0)))*Parameters_.a_moire;
+
+
+double dis_x_temp, dis_y_temp;
+
+
+counter=0;
+
+for(int dof1_=0;dof1_<2;dof1_++){ // dof=unitcell
+for(int dof2_=0;dof2_<2;dof2_++){
+for(int dof3_=0;dof3_<2;dof3_++){
+for(int dof4_=0;dof4_<2;dof4_++){
+
+if(dof2_==dof3_){
+dis_x_temp=0;
+dis_y_temp=0;
+}
+if(dof2_==1 && dof3_==0){
+dis_x_temp=dis_x;
+dis_y_temp=dis_y;
+}
+if(dof2_==0 && dof3_==1){
+dis_x_temp=-1.0*dis_x;
+dis_y_temp=-1.0*dis_y;
+}
+
+
+//orb is sublattice
+for(int orb1_=0;orb1_<2;orb1_++){
+for(int orb2_=0;orb2_<2;orb2_++){
+for(int orb3_=0;orb3_<2;orb3_++){
+for(int orb4_=0;orb4_<2;orb4_++){
+
+int band1_= orb1_ + dof1_*2;
+int band2_= orb2_ + dof2_*2;
+int band3_= orb3_ + dof3_*2;
+int band4_= orb4_ + dof4_*2;
+
+//dof=0 means center site
+//dof=1 means neighbour (+a1,-a2) site or (0,-a2) site
+
+
+double V_;
+ complex<double> val_=0.0;
+complex<double> mat_elmt_left, mat_elmt_right;
+                for(int q_ind=0;q_ind<q_slices;q_ind++){
+                 q_val = q_ind*d_q;
+                for(int theta_ind=0;theta_ind<theta_slices;theta_ind++){
+                 theta_val = theta_ind*d_theta;
+                qx_=q_val*cos(theta_val);
+                qy_=q_val*sin(theta_val);
+
+
+      //Mq_SphC[q_ind][theta_ind]
+                    V_= (2*PI*14.399*1000*tanh(q_val*Parameters_.d_screening))/(Parameters_.eps_DE);
+
+    if(dof3_==dof1_ ){
+    mat_elmt_left = conj(Mq_SphC[orb3_][orb1_][q_ind][theta_ind]);
+    }
+    if(dof3_==1 && dof1_==0){
+    mat_elmt_left = conj(MqR_SphC[orb3_][orb1_][q_ind][theta_ind][r1_neigh+r2_neigh*L1_eff]);
+    }
+    if(dof3_==0 && dof1_==1){
+    mat_elmt_left = conj(MqR_SphC[orb1_][orb3_][q_ind][theta_ind][r1_neigh+r2_neigh*L1_eff]*exp(iota_complex* (qx_*(dis_x) + qy_*(dis_y))) );
+    }
+
+
+    if(dof4_==dof2_ ){
+        mat_elmt_right = (Mq_SphC[orb2_][orb4_][q_ind][theta_ind]);
+        }
+        if(dof2_==1 && dof4_==0){
+        mat_elmt_right = (MqR_SphC[orb2_][orb4_][q_ind][theta_ind][r1_neigh+r2_neigh*L1_eff]);
+        }
+        if(dof2_==0 && dof4_==1){
+        mat_elmt_right = MqR_SphC[orb4_][orb2_][q_ind][theta_ind][r1_neigh+r2_neigh*L1_eff]*exp(iota_complex* (qx_*(dis_x) + qy_*(dis_y)));
+        }
+
+
+
+        val_+= (1.0/(4.0*PI*PI))*(d_q*d_theta)*(V_*mat_elmt_left*mat_elmt_right)*exp(iota_complex* (qx_*(dis_x_temp) + qy_*(dis_y_temp)));
+                }
+            }
+
+//cout<<val_<<"  ";
+
+Orbital1_array[counter]=band1_;
+Orbital2_array[counter]=band2_;
+Orbital3_array[counter]=band3_;
+Orbital4_array[counter]=band4_;
+Vals_array[counter]=val_;
+counter++;
+
+
+
+}}}}
+
+
+}}}}
+
+
+
+//Arranging in decreasing order;
+assert(counter==(16*N_bands*N_bands*N_bands*N_bands));
+max_val=0;
+int site1_, sublattice1_, orb1_;
+int site2_, sublattice2_, orb2_;
+int site3_, sublattice3_, orb3_;
+int site4_, sublattice4_, orb4_;
+Vals_array_ordered=Vals_array;
+Orbital1_array_ordered.clear();Orbital2_array_ordered.clear();
+Orbital3_array_ordered.clear();Orbital4_array_ordered.clear();
+Orbital1_array_ordered.resize(16*N_bands*N_bands*N_bands*N_bands);
+Orbital2_array_ordered.resize(16*N_bands*N_bands*N_bands*N_bands);
+Orbital3_array_ordered.resize(16*N_bands*N_bands*N_bands*N_bands);
+Orbital4_array_ordered.resize(16*N_bands*N_bands*N_bands*N_bands);
+string file_NNneigh_interaction_str;
+if(r1_neigh_offset==0){
+file_NNneigh_interaction_str= "NearestandNextNearestNeighbour_All_ma2_interactions.txt";}
+if(r1_neigh_offset==1){
+file_NNneigh_interaction_str= "NearestandNextNearestNeighbour_All_pa1_ma2_interactions.txt";
+}
+ofstream fileout_NNneigh_interaction(file_NNneigh_interaction_str.c_str());
+
+
+fileout_NNneigh_interaction<<"#site=1 is the neigh of site=0"<<endl;
+fileout_NNneigh_interaction<<"#site1 sublattice1 orb1 site2 sublattice2 orb2 site3 sublattice3 orb3 site4 sublattice4 orb4  V(site1 subltc1 orb1 , -2- , -3- , -4-)"<<endl;
+for(int j=0;j<16*N_bands*N_bands*N_bands*N_bands;j++){
+
+//Finding maximum val
+for(int i=0;i<16*N_bands*N_bands*N_bands*N_bands;i++){
+if(abs(Vals_array[i])>=abs(max_val)){
+max_val=Vals_array[i];
+i_max=i;
+}
+}
+
+
+Vals_array_ordered[j]=Vals_array[i_max];
+Vals_array[i_max]=0.0;
+max_val=0;
+
+Orbital1_array_ordered[j]=Orbital1_array[i_max];
+Orbital2_array_ordered[j]=Orbital2_array[i_max];
+Orbital3_array_ordered[j]=Orbital3_array[i_max];
+Orbital4_array_ordered[j]=Orbital4_array[i_max];
+
+//For px-py model
+/*
+orb1_= Orbital1_array_ordered[j]%2;
+orb2_= Orbital2_array_ordered[j]%2;
+orb3_= Orbital3_array_ordered[j]%2;
+orb4_= Orbital4_array_ordered[j]%2;
+
+site1_ = int((1.0*Orbital1_array_ordered[j] +0.5)/(2.0));sublattice1_ = site1_;
+site2_ = int((1.0*Orbital2_array_ordered[j] +0.5)/(2.0));sublattice2_ = site2_;
+site3_ = int((1.0*Orbital3_array_ordered[j] +0.5)/(2.0));sublattice3_ = site3_;
+site4_ = int((1.0*Orbital4_array_ordered[j] +0.5)/(2.0));sublattice4_ = site4_;
+*/
+
+
+//sublattice + site*2;
+
+
+site1_ = (Orbital1_array_ordered[j]/2);
+site2_ =  Orbital2_array_ordered[j]/2;
+site3_=  Orbital3_array_ordered[j]/2;
+site4_=  Orbital4_array_ordered[j]/2;
+
+orb1_=0;orb2_=0;orb3_=0;orb4_=0;
+sublattice1_ = Orbital1_array_ordered[j]%2;
+sublattice2_ = Orbital2_array_ordered[j]%2;
+sublattice3_ = Orbital3_array_ordered[j]%2;
+sublattice4_ = Orbital4_array_ordered[j]%2;
+
+
+//fileout_onsite_interaction<<"["<< Orbital1_array_ordered[j]<< "]"<<"["<< Orbital2_array_ordered[j]<< "]"<<"["<<Orbital3_array_ordered[j] << "]"<<"["<< Orbital4_array_ordered[j]<< "]"<<"    "<<Vals_array_ordered[j]<<"  "<<endl;
+
+fileout_NNneigh_interaction<<site1_<<" "<<sublattice1_<<" "<<orb1_<<" "<<site2_<<" "<<sublattice2_<<" "<<orb2_<<" "<<site3_<<" "<<sublattice3_<<" "<<orb3_<<" "<<site4_<<" "<<sublattice4_<<" "<<orb4_<<" "<<Vals_array_ordered[j]<<endl;
+
+}
+cout<<" Nearest and Next Nearest neighbour all ("<<r1_neigh_offset<<"*a1, -a2) interactions printed in decreasing order"<<endl;
+
+cout<<"----------------------------------------"<<endl;
+
+}//r1_neigh_offset
 
 
 
